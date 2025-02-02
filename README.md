@@ -39,9 +39,9 @@ An interactive quiz application focused on molecular biology and genetics, featu
    ```bash
    git clone https://github.com/techkharshit/Quiz-App.git
 2. Install Dependencies:
-3. ```bash
+   ```bash
    cd Quiz-App && npm install
-4. Start the development server:
-5. ```bash
+3. Start the development server:
+   ```bash
    npm start
    
