@@ -55,9 +55,9 @@ An interactive quiz application focused on molecular biology and genetics, featu
 ## Screenshots 📸
 
 <!-- Add your screenshots with captions -->
-Start Screen
+Start Screen </br>
 <img src="/public/start-screen.png" width="300"> </br>
-Quiz Interface<
+Quiz Interface </br>
 <img src="/public/quiz-interface.png" width="300"> </br>
-Results Page
+Results Page </br>
 <img src="/public/results-page.png" width="300">
