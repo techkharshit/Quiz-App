@@ -15,8 +15,7 @@ An interactive quiz application focused on molecular biology and genetics, featu
   
 <a id="features"></a>
 ## Features ✨
-- 3-minute timed quizzes with auto-submission
-- Light/dark mode toggle
+- 2-minute timed quizzes with auto-submission
 - Interactive question navigation
 - Progress tracking visualizations
 - Skip & revisit functionality
@@ -53,7 +52,7 @@ An interactive quiz application focused on molecular biology and genetics, featu
 - Styling: CSS Modules, Flexbox/Grid
 - Icons: React Icons
 - State Management: React Hooks
-- Build Tool: Vite
+- Build Tool: Create React App (Webpack/Babel)
 
 <a id="screenshots"></a>
 ## Screenshots 📸
