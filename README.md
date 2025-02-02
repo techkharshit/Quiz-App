@@ -54,10 +54,19 @@ An interactive quiz application focused on molecular biology and genetics, featu
 
 ## Screenshots 📸
 
-<!-- Add your screenshots with captions -->
-Start Screen </br>
-<img src="/public/start-screen.png" width="300"> </br>
-Quiz Interface </br>
-<img src="/public/quiz-interface.png" width="300"> </br>
-Results Page </br>
-<img src="/public/results-page.png" width="300">
+<div align="center" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 2rem 0;">
+  <div style="flex: 1; min-width: 300px; max-width: 400px; text-align: center;">
+    <h4>Start Screen</h4>
+    <img src="/public/start-screen.png" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  </div>
+  
+  <div style="flex: 1; min-width: 300px; max-width: 400px; text-align: center;">
+    <h4>Quiz Interface</h4>
+    <img src="/public/quiz-interface.png" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  </div>
+  
+  <div style="flex: 1; min-width: 300px; max-width: 400px; text-align: center;">
+    <h4>Results Page</h4>
+    <img src="/public/results-page.png" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  </div>
+</div>
