@@ -2,8 +2,6 @@
 
 An interactive quiz application focused on molecular biology and genetics, featuring timed challenges, detailed solutions, and dynamic UI animations.
 
-![App Screenshot](/public/screenshot.png) <!-- Add your screenshot path here -->
-
 ## Live Demo ▶️
 <!-- Add hosted URL or video walkthrough link here -->
 [Video Walkthrough](https://your-demo-link.com) 
@@ -57,5 +55,9 @@ An interactive quiz application focused on molecular biology and genetics, featu
 ## Screenshots 📸
 
 <!-- Add your screenshots with captions -->
-Start Screen	Quiz Interface	Results Page
-<img src="/public/start-screen.png" width="300">	<img src="/public/quiz-interface.png" width="300">	<img src="/public/results-page.png" width="300">
+Start Screen
+<img src="/public/start-screen.png" width="300"> </br>
+Quiz Interface<
+<img src="/public/quiz-interface.png" width="300"> </br>
+Results Page
+<img src="/public/results-page.png" width="300">
