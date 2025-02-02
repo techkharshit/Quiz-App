@@ -23,7 +23,7 @@ An interactive quiz application focused on molecular biology and genetics, featu
 - Score breakdown analytics
 - Animated transitions
   
-<a id="usage"></a>
+<a id="installation"></a>
 ## Installation ⚙️
 
 1. Clone the repository:
