@@ -26,7 +26,6 @@ An interactive quiz application focused on molecular biology and genetics, featu
 
 ## Features ✨
 - 3-minute timed quizzes with auto-submission
-- Light/dark mode toggle
 - Interactive question navigation
 - Progress tracking visualizations
 - Skip & revisit functionality
