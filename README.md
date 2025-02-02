@@ -14,10 +14,10 @@ An interactive quiz application focused on molecular biology and genetics, featu
 [Video Walkthrough](https://your-demo-link.com) 
 
 ## Table of Contents
-- [Features](#features-✨)
-- [Installation](#installation-⚙️)
-- [Usage](#usage-🚀)
-- [Tech Stack](#tech-stack-💻)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Tech Stack](#tech-stack)
 - [Screenshots](#screenshots)
 - [Customization](#customization)
 - [Contributing](#contributing)
