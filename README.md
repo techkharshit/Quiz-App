@@ -12,7 +12,8 @@ An interactive quiz application focused on molecular biology and genetics, featu
 - [Usage](#usage)
 - [Tech Stack](#tech-stack)
 - [Screenshots](#screenshots)
-
+  
+<a id="features"></a>
 ## Features ✨
 - 3-minute timed quizzes with auto-submission
 - Light/dark mode toggle
@@ -22,20 +23,21 @@ An interactive quiz application focused on molecular biology and genetics, featu
 - Detailed solution explanations
 - Score breakdown analytics
 - Animated transitions
-
+  
+<a id="usage"></a>
 ## Installation ⚙️
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/genetics-quiz.git
+   git clone https://github.com/techkharshit/Quiz-App.git
 2. Install dependencies:
    ```bash
-   cd genetics-quiz && npm install
+   cd Quiz_App && npm install
 3. Start the development server:
    ```bash
-   npm start
+   npm run start
 
-
+<a id="usage"></a>
 ## Usage 🚀
 
 - Click "Start Quiz" on the welcome screen
@@ -43,7 +45,8 @@ An interactive quiz application focused on molecular biology and genetics, featu
 - Reattempt the skipped question
 - Review results with detailed solutions
 - Use the sidebar to track progress
-
+  
+<a id="tech-stack"></a>
 ## Tech Stack 💻
 
 - Frontend: React 18, Framer Motion
@@ -52,6 +55,7 @@ An interactive quiz application focused on molecular biology and genetics, featu
 - State Management: React Hooks
 - Build Tool: Vite
 
+<a id="screenshots"></a>
 ## Screenshots 📸
 
 <div align="center" style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 2rem 0;">
