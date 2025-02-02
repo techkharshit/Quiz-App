@@ -44,4 +44,19 @@ An interactive quiz application focused on molecular biology and genetics, featu
 3. Start the development server:
    ```bash
    npm start
+
+## Usage 🚀
+- Click "Start Quiz" on the welcome screen
+- Answer/Skip questions within 3 minutes
+- Revisit skipped question to reattempt
+- Review results with detailed solutions
+- Use the sidebar to track progress
+
+## Tech Stack 💻
+- Frontend: React 18, Framer Motion
+- Styling: CSS Modules, Flexbox/Grid
+- Icons: React Icons
+- State Management: React Hooks
+- Build Tool: Vite
+  
    
