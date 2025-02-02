@@ -1,0 +1,84 @@
+.question-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .options-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .option-btn {
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .option-btn.correct {
+    background: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+  
+  .option-btn.incorrect {
+    background: #f56565;
+    border-color: #f56565;
+    color: white;
+  }
+  /* Add to Question.css */
+.question-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.skip-btn {
+  background: transparent;
+  color: #64748b;
+  border: 2px solid #e2e8f0;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skip-btn:hover:not(:disabled) {
+  border-color: #6366f1;
+  color: #6366f1;
+  transform: translateX(5px);
+}
+
+.skip-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Update Results.css to show skipped questions */
+.review-option.skipped {
+  background: #f1f5f9;
+  border-color: #cbd5e0;
+  color: #64748b;
+  position: relative;
+}
+
+.review-option.skipped::after {
+  content: 'Skipped';
+  position: absolute;
+  right: 1rem;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}

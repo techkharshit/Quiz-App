@@ -1,0 +1,23 @@
+/* Particles.css */
+.particle {
+    position: absolute;
+    background: black;
+    border-radius: 50%;
+    size: 500px;
+    animation: float 20s infinite linear;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(-100vh) translateX(100vw);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-200vh) translateX(200vw);
+      opacity: 0;
+    }
+  }

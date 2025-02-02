@@ -1,0 +1,238 @@
+.results-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+  
+  .score-card {
+    background: #4299e1;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .review-section {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .review-item {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .options-review {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .review-option {
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .correct-answer {
+    background: #c6f6d5;
+    border-color: #48bb78;
+  }
+  
+  .wrong-answer {
+    background: #fed7d7;
+    border-color: #f56565;
+  }
+  /* Results.css Additions */
+.solution-section {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background-color: #f7fafc;
+    border-radius: 8px;
+    border-left: 4px solid #4299e1;
+  }
+  
+  .solution-section h4 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .solution-content {
+    color: #4a5568;
+    line-height: 1.6;
+  }
+  
+  .solution-content p {
+    margin-bottom: 0.8rem;
+  }
+  
+  .solution-content ul,
+  .solution-content ol {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+  }
+  
+  .solution-content li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .solution-content strong {
+    color: #2d3748;
+    font-weight: 600;
+  }
+
+.results-container .start-button {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+/* Results.css */
+.results-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.score-header {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.score-card {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 20px;
+  padding: 2rem;
+  color: white;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.score-percentage {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+}
+
+.progress-circle {
+  width: 100%;
+  height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 8;
+}
+
+.circle-progress {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: all 1s ease;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.percentage-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.score-fraction {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.result-message {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.result-emoji {
+  font-size: 2rem;
+}
+
+.score-breakdown {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.breakdown-item.correct {
+  background: #dcfce7;
+  color: #22c55e;
+}
+
+.breakdown-item.wrong {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.breakdown-item.skipped {
+  background: #fef3c7;
+  color: #f59e0b;
+}
+
+.breakdown-icon {
+  font-size: 1.2rem;
+}
+
+.restart-button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem auto 0;
+  transition: all 0.3s ease;
+}
+
+.restart-button:hover {
+  background: #4338ca;
+}
+
+.restart-icon {
+  transition: transform 0.5s ease;
+}
+
+.restart-button:hover .restart-icon {
+  transform: rotate(360deg);
+}
+
+@keyframes confetti {
+  0% { transform: translateY(0) rotate(0); }
+  100% { transform: translateY(100vh) rotate(360deg); }
+}
