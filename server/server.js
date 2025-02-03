@@ -1,12 +1,10 @@
 // server.js
-const dotenv = require("dotenv");
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch'); // Install with npm install node-fetch
+
 const app = express();
-
-dotenv.config();
-
 // Middleware
 app.use(cors());
 app.use(express.json());
