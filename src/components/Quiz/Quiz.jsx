@@ -7,9 +7,10 @@ import './Quiz.css';
 import { FaQuestionCircle } from 'react-icons/fa';
 import { MdOutlineScreenshotMonitor } from 'react-icons/md';
 
+
 const Quiz = () => {
   // State Management
-  const [quizData, setQuizData] = useState(null);          // Stores fetched quiz data
+  const [quizData, setQuizData] = useState({ questions: [] });         // Stores fetched quiz data
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Current question index
   const [score, setScore] = useState(0);                   // User's current score
   const [selectedOptions, setSelectedOptions] = useState({}); // Map of selected answers
@@ -18,43 +19,54 @@ const Quiz = () => {
   const [timeLeft, setTimeLeft] = useState(120);           // Remaining time in seconds
   const [isCountingDown, setIsCountingDown] = useState(false); // Pre-quiz countdown state
   const [countdown, setCountdown] = useState(3);           // Countdown from 3 to 1
-  const [isQuizActive, setIsQuizActive] = useState(false); // Main quiz active state
+  const [isQuizActive, setIsQuizActive] = useState(false);
+  const [error, setError] = useState(null);
+   // Main quiz active state
 
   // Data Fetching Effect
   useEffect(() => {
-    if (quizStarted && !quizData) {
+    if (quizStarted && !quizData?.questions?.length) {
       const fetchQuizData = async () => {
         setIsLoading(true);
         try {
-          const response = await fetch('/Uw5CrX');
+          const response = await fetch('http://localhost:5000/api/questions');
+          if (!response.ok) throw new Error('Failed to fetch questions');
+          
           const data = await response.json();
+          if (!data.questions) throw new Error('Invalid data format');
           setQuizData(data);
         } catch (error) {
           console.error('Error fetching quiz:', error);
+          setError(error.message);
         } finally {
           setIsLoading(false);
         }
       };
       fetchQuizData();
     }
-  }, [quizStarted, quizData]);
+  }, [quizStarted, quizData?.questions?.length]);
 
   // Start Countdown When Data Loads
   useEffect(() => {
-    if (quizData && quizStarted) setIsCountingDown(true);
+    if (quizData?.questions?.length && quizStarted) setIsCountingDown(true);
   }, [quizData, quizStarted]);
 
   // Quiz Timer Effect
   useEffect(() => {
     let timer;
-    if (isQuizActive && quizData) {
+    if (isQuizActive && quizData?.questions?.length) {
       timer = setInterval(() => {
-        setTimeLeft(prev => prev <= 1 ? 0 : prev - 1);
-        if(timeLeft <= 1) setCurrentQuestionIndex(quizData.questions.length);
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            setCurrentQuestionIndex(quizData.questions.length);
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [isQuizActive, quizData, timeLeft]);
+  }, [isQuizActive, quizData?.questions?.length]);
 
   // Pre-Quiz Countdown Effect
   useEffect(() => {
@@ -89,9 +101,10 @@ const Quiz = () => {
   };
 
   // Navigation Logic
-  const findNextUnattemptedIndex = (currentIndex, totalQuestions) => {
-    // Find next unanswered question index
+  const findNextUnattemptedIndex = (currentIndex) => {
+    const totalQuestions = quizData?.questions?.length || 0;
     let nextIndex = currentIndex + 1;
+    
     while (nextIndex < totalQuestions && selectedOptions.hasOwnProperty(nextIndex)) {
       nextIndex++;
     }
@@ -102,7 +115,7 @@ const Quiz = () => {
   const handleSkip = () => {
     setSelectedOptions(prev => ({ ...prev, [currentQuestionIndex]: 'skipped' }));
     setTimeout(() => {
-      const nextIndex = findNextUnattemptedIndex(currentQuestionIndex, quizData.questions.length);
+      const nextIndex = findNextUnattemptedIndex(currentQuestionIndex);
       setCurrentQuestionIndex(nextIndex);
     }, 1000);
   };
@@ -111,7 +124,7 @@ const Quiz = () => {
     setSelectedOptions(prev => ({ ...prev, [currentQuestionIndex]: optionId }));
     if (isCorrect) setScore(prev => prev + 1);
     setTimeout(() => {
-      const nextIndex = findNextUnattemptedIndex(currentQuestionIndex, quizData.questions.length);
+      const nextIndex = findNextUnattemptedIndex(currentQuestionIndex);
       setCurrentQuestionIndex(nextIndex);
     }, 1000);
   };
@@ -128,8 +141,11 @@ const Quiz = () => {
   if (!quizStarted) {
     return <StartScreen onStart={handleStartQuiz} isLoading={isLoading} />;
   }
+  if (error) {
+    return <div className="error">Error: {error}. Please try reloading.</div>;
+  }
 
-  if (isLoading || !quizData) {
+  if (isLoading || !quizData?.questions?.length) {
     return <div className="loading">Loading quiz...</div>;
   }
 
