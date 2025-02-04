@@ -2,13 +2,16 @@
 import './Results.css';
 import { motion } from 'framer-motion';
 import { FaRedo } from 'react-icons/fa';
-import { GiCheckMark, GiCrossMark, GiSkiBoot } from 'react-icons/gi';
+import { GiCheckMark, GiCrossMark, GiSkiBoot, GiSkullInJar } from 'react-icons/gi';
 
 const Results = ({ score, total, questions, selectedOptions, onRestart }) => {
   // Calculate result metrics
   const percentage = Math.round((score / total) * 100);
   const skipped = Object.values(selectedOptions).filter(v => v === 'skipped').length;
-  const wrong = total - score - skipped;
+  const attempted = Object.keys(selectedOptions).length;
+  const unattempted = total - attempted;
+  const answered = attempted - skipped;
+  const wrong = answered - score;
 
   // Determine result message based on percentage
   const getResultMessage = () => {
@@ -83,13 +86,26 @@ const Results = ({ score, total, questions, selectedOptions, onRestart }) => {
           <GiSkiBoot className="breakdown-icon" />
           <span>{skipped} Skipped</span>
         </div>
+        <div className="breakdown-item unattempted">
+          <GiSkullInJar className="breakdown-icon" />
+          <span>{unattempted} Unattempted</span>
+        </div>
       </motion.div>
 
       {/* Questions Review Section */}
       <div className="review-section">
-        {questions.map((question, index) => (
+        {questions.map((question, index) => {
+          const isUnattempted = !selectedOptions.hasOwnProperty(index);
+          const isSkipped = selectedOptions[index] === 'skipped';
+
+          return (
           <div key={question.id} className="review-item">
             <h3>Question {index + 1}:</h3>
+
+          <div className="question-header">
+            {isUnattempted && (<span className="status-badge unattempted">Unattempted</span>)}
+            {isSkipped && <span className="status-badge skipped">Skipped</span>}
+          </div>
             
             {/* Question Text */}
             <div 
@@ -103,12 +119,23 @@ const Results = ({ score, total, questions, selectedOptions, onRestart }) => {
                 <div
                   key={option.id}
                   className={`review-option ${
-                    option.is_correct ? 'correct-answer' : 
-                    selectedOptions[index] === 'skipped' ? 'skipped' :                    
-                    selectedOptions[index] === option.id ? 'wrong-answer' : ''
+                    option.is_correct 
+                      ? 'correct-answer' 
+                      : isSkipped 
+                        ? 'skipped' 
+                        : isUnattempted 
+                          ? 'unattempted' 
+                          : selectedOptions[index] === option.id 
+                            ? 'wrong-answer' 
+                            : ''
                   }`}
-                  dangerouslySetInnerHTML={{ __html: option.description }}
+                  >
+                  <span className="option-label">
+                  {String.fromCharCode(65 + question.options.indexOf(option))}. 
+                </span>
+                <span dangerouslySetInnerHTML={{ __html: option.description }}
                 />
+                </div>
               ))}
             </div>
 
@@ -123,7 +150,8 @@ const Results = ({ score, total, questions, selectedOptions, onRestart }) => {
               />
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Restart Button with Hover Animation */}

@@ -21,6 +21,7 @@ const Quiz = () => {
   const [countdown, setCountdown] = useState(3);           // Countdown from 3 to 1
   const [isQuizActive, setIsQuizActive] = useState(false);
   const [error, setError] = useState(null);
+  const [isQuizSubmitted, setIsQuizSubmitted] = useState(false);
    // Main quiz active state
 
   // Data Fetching Effect
@@ -58,7 +59,7 @@ const Quiz = () => {
       timer = setInterval(() => {
         setTimeLeft(prev => {
           if (prev <= 1) {
-            setCurrentQuestionIndex(quizData.questions.length);
+            setIsQuizSubmitted(true);;
             return 0;
           }
           return prev - 1;
@@ -87,28 +88,44 @@ const Quiz = () => {
 
   // Quiz Control Handlers
   const handleStartQuiz = () => setQuizStarted(true);
-
-  const handleRestart = () => {
-    // Reset all states to initial values
-    setQuizStarted(false);
-    setCurrentQuestionIndex(0);
-    setScore(0);
-    setSelectedOptions({});
-    setQuizData(null);
-    setTimeLeft(120);
-    setIsQuizActive(false);
-    setIsCountingDown(false);
+  const handleSubmit = () => {
+    setIsQuizSubmitted(true);
   };
+
+// src/components/Quiz/Quiz.jsx
+const handleRestart = () => {
+  // Reset to initial state properly
+  setQuizStarted(false);
+  setCurrentQuestionIndex(0);
+  setScore(0);
+  setSelectedOptions({});
+  setQuizData({ questions: [] }); // Changed from null to initial state
+  setTimeLeft(120);
+  setIsQuizActive(false);
+  setIsCountingDown(false);
+  setIsQuizSubmitted(false); // Add this if you have submission state
+};
 
   // Navigation Logic
   const findNextUnattemptedIndex = (currentIndex) => {
-    const totalQuestions = quizData?.questions?.length || 0;
+    const totalQuestions = quizData.questions.length;
     let nextIndex = currentIndex + 1;
     
     while (nextIndex < totalQuestions && selectedOptions.hasOwnProperty(nextIndex)) {
       nextIndex++;
     }
-    return nextIndex >= totalQuestions ? totalQuestions : nextIndex;
+    
+    // Loop back to start if reached end
+    if (nextIndex >= totalQuestions) {
+      nextIndex = quizData.questions.findIndex(
+        (_, index) => !selectedOptions.hasOwnProperty(index)
+      );
+      
+      // If all attempted, stay on current
+      if (nextIndex === -1) nextIndex = currentIndex;
+    }
+    
+    return nextIndex;
   };
 
   // Question Interaction Handlers
@@ -120,14 +137,41 @@ const Quiz = () => {
     }, 1000);
   };
 
-  const handleAnswer = (optionId, isCorrect) => {
+  const handleAnswer = (optionId) => {
     setSelectedOptions(prev => ({ ...prev, [currentQuestionIndex]: optionId }));
-    if (isCorrect) setScore(prev => prev + 1);
+    
     setTimeout(() => {
       const nextIndex = findNextUnattemptedIndex(currentQuestionIndex);
-      setCurrentQuestionIndex(nextIndex);
+      
+      // Only move if not at end of quiz
+      if (nextIndex < quizData.questions.length) {
+        setCurrentQuestionIndex(nextIndex);
+      } else {
+        // Check for remaining unattempted questions
+        const firstUnattempted = quizData.questions.findIndex(
+          (_, index) => !selectedOptions.hasOwnProperty(index)
+        );
+        
+        if (firstUnattempted !== -1) {
+          setCurrentQuestionIndex(firstUnattempted);
+        }
+      }
     }, 1000);
   };
+
+  useEffect(() => {
+    // Calculate score whenever submission happens or time runs out
+    if (isQuizSubmitted || timeLeft === 0) {
+      console.log("Calculating final score");
+      const calculatedScore = quizData.questions.reduce((acc, question, index) => {
+        const selectedId = selectedOptions[index];
+        const correctAnswer = question.options.find(opt => opt.is_correct)?.id;
+        // Only count answers for non-skipped questions
+        return selectedId && selectedId !== 'skipped' && selectedId === correctAnswer ? acc + 1 : acc;
+      }, 0);
+      setScore(calculatedScore);
+    }
+  }, [isQuizSubmitted, timeLeft, quizData.questions, selectedOptions]);
 
   // Helper Functions
   const formatTime = (seconds) => {
@@ -149,7 +193,7 @@ const Quiz = () => {
     return <div className="loading">Loading quiz...</div>;
   }
 
-  if (currentQuestionIndex >= quizData.questions.length) {
+  if (isQuizSubmitted || timeLeft === 0) {
     return <Results 
       score={score} 
       total={quizData.questions.length} 
@@ -217,8 +261,7 @@ const Quiz = () => {
                       selectedOptions[index] === 'skipped' ? 'skipped' :
                       selectedOptions[index] ? 'answered' : ''
                     }`}
-                    onClick={() => selectedOptions[index] === 'skipped' && setCurrentQuestionIndex(index)}
-                    disabled={selectedOptions[index] && selectedOptions[index] !== 'skipped'}
+                    onClick={() => setCurrentQuestionIndex(index)}
                   >
                     {index + 1}
                   </button>
@@ -260,9 +303,17 @@ const Quiz = () => {
                   background: `linear-gradient(90deg, #6366f1 ${currentQuestionIndex * 10}%, #8b5cf6 100%)`
                 }}
               />
-              <span className="progress-text">
-                {currentQuestionIndex + 1}/{quizData.questions.length}
-              </span>
+              <div className="progress-controls">
+                <span className="progress-text">
+                  {currentQuestionIndex + 1}/{quizData.questions.length}
+                </span>
+                <button 
+                  className="submit-button"
+                  onClick={handleSubmit}
+                >
+                  Submit Quiz
+                </button>
+              </div>
             </div>
           
             {/* Animated Question Container */}
@@ -276,6 +327,7 @@ const Quiz = () => {
                 selectedOption={selectedOptions[currentQuestionIndex]}
                 onAnswer={handleAnswer}
                 onSkip={handleSkip}
+                showCorrectness={false}
               />
             </motion.div>
           </div>
