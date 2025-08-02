@@ -30,7 +30,7 @@ const Quiz = () => {
       const fetchQuizData = async () => {
         setIsLoading(true);
         try {
-          const response = await fetch('https://quiz-app-nwxo.onrender.com/api/questions');
+          const response = await fetch('https://quiz-app-32va.onrender.com/api/questions');
           if (!response.ok) throw new Error('Failed to fetch questions');
           
           const data = await response.json();
